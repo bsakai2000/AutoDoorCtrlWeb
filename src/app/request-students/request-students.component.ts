@@ -28,13 +28,16 @@ export class RequestStudentsComponent implements OnInit {
 
   // adds student to the active students list using student service 
   addStudent(username):void{
-    this.studentService.addOne(username);
-    window.location.reload();
+    this.studentService.addOne(username, function(){
+      window.location.reload();
+    });
   }
 
   // adds all students to the active students list using student service 
   addAll():void{
-    this.studentService.addAll
+    this.studentService.addAll(function() {
+      window.location.reload();
+    });
   }
 
   //downloads student list in csv gfile

@@ -28,7 +28,9 @@ export class ActiveStudentsComponent implements OnInit {
 
   //removes a student from the active list using student service
   removeOne(username):void{
-    this.studentService.remove(username);
+    this.studentService.remove(username, function(){
+      window.location.reload();
+    );
   }
 
   // logs the admin out using admin service

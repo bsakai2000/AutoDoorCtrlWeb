@@ -24,51 +24,54 @@ export class StudentService {
     return this.http.get<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/inactive_user")
   }
 
-  // adds studet request to db through api
-  register(username):void {
+  // adds student request to db through api
+  register(username, _callback):void {
     const headers = new HttpHeaders().set( 'Content-Type', 'application/json');
     let body = JSON.stringify({RCSid:username});
     this.http.post<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/request-access",body,{headers: headers}).subscribe(
       data =>{
         console.log("user added to Database as request");
+	_callback();
       },
       err =>{
       console.log("err: issue with server");
-      })
+    })
   }
 
   // adds one student to the active student list
-  addOne(username):void {
+  addOne(username, _callback):void {
     const headers = new HttpHeaders().set( 'Content-Type', 'application/json');
     let body = JSON.stringify({RCSid:username});
     this.http.post<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/addtoActive",body,{headers: headers}).subscribe(
       data =>{
         console.log("user added to Database as request");
+        _callback();
       },
       err =>{
-      console.log("err: issue with server");
+        console.log("err: issue with server");
       })
   }
 
   // adds all students with request to the active students list
-  addAll():void {
+  addAll(_callback):void {
     
     this.http.get<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/addAll").subscribe(
       data =>{
         console.log(" All request users added to Database as Active");
+	_callback();
       },
       err =>{
       console.log("err: issue with server");
       })
   }
 // removes a student from the active student list
-  remove(username):void {
+  remove(username, _callback):void {
     const headers = new HttpHeaders().set( 'Content-Type', 'application/json');
     let body = JSON.stringify({RCSid:username});
     this.http.post<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/remove",body,{headers: headers}).subscribe(
       data =>{
         console.log("user removed from Database");
-        window.location.reload();
+	_callback();
       },
       err =>{
       console.log("err: issue with server");

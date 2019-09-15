@@ -33,8 +33,9 @@ export class LoginComponent implements OnInit {
 
   //allows students to register via student service
   Studentregister(username):void{
-    this.studentService.register(username);
-    window.location.reload();
+  this.studentService.register(username, function() {
+      window.location.reload();
+    });
   }
 
 }
