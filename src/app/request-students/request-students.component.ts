@@ -23,7 +23,7 @@ export class RequestStudentsComponent implements OnInit {
   // loads students info into table using student service
   getStudents():void{
     this.studentService.getRequest()
-    .subscribe(List => this.Students = List);
+    .subscribe(List => {this.Students = List}, err => {localStorage.removeItem("admin"); document.location.reload()});
   }
 
   // adds student to the active students list using student service 

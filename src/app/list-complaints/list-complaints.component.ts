@@ -30,6 +30,8 @@ export class ListComplaintsComponent implements OnInit {
       },
       err =>{
       console.log("err: issue with server");
+      localStorage.removeItem("admin");
+      document.location.reload();
       })
   }
 

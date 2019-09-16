@@ -66,7 +66,8 @@ export class StudentService {
   }
 // removes a student from the active student list
   remove(username, _callback):void {
-    const headers = new HttpHeaders().set( 'Content-Type', 'application/json');
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+    headers.append('Access-Control-Allow-Origin', serverGlobals.dbServer);
     let body = JSON.stringify({RCSid:username});
     this.http.post<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/remove",body,{headers: headers}).subscribe(
       data =>{

@@ -28,21 +28,8 @@ export class AdminService {
       
       let body = JSON.stringify({username:username, password:password});
       console.log('this is username in service',body)
-      this.http.post<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/admin/login",body,{headers: headers}).subscribe(
-        data =>{ this.admin = data;
-                  console.log("this is the admin we get",this.admin);
-                  if(this.admin.length>0){
-                    
-                      localStorage.setItem("admin", this.admin[0].username);
-                      console.log("the user set in storage:",localStorage.getItem("admin"));
-                      this.router.navigate(['active-students']);
-                      return true;
-                  }
-                  else{
-                    
-                    return false;
-                  }   
-        },
+      this.http.post<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/admin/login",body,{headers: headers, withCredentials: true}).subscribe(
+        data =>{ this.router.navigate(['active-students']); localStorage.setItem("admin", data[0].username); },
         err => {console.log("error on the server")}
       );
      return false;
@@ -51,6 +38,7 @@ export class AdminService {
   // deletes admin from local storage
   logout():void{
     localStorage.removeItem("admin");
+    document.cookie = "SESSIONID=";
     console.log("admin is empty")
     this.router.navigate(['login']);
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 import {StudentService} from '../student.service'; 
 import {AdminService} from '../admin.service';
@@ -23,14 +25,14 @@ export class ActiveStudentsComponent implements OnInit {
   //loads students into table using student service
   getStudents():void{
     this.studentService.getActive()
-    .subscribe(List => this.Students = List);
+    .subscribe(List => {this.Students = List}, err => {localStorage.removeItem("admin"); document.location.reload()});
   }
 
   //removes a student from the active list using student service
   removeOne(username):void{
     this.studentService.remove(username, function(){
       window.location.reload();
-    );
+    });
   }
 
   // logs the admin out using admin service
