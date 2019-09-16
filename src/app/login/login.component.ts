@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import {StudentService} from '../student.service';
 import {AdminService} from '../admin.service';
+import { Router } from '@angular/router/';
 
 
 
@@ -14,11 +15,18 @@ import {AdminService} from '../admin.service';
 export class LoginComponent implements OnInit {
 
   // constructors needed to use the different services 
-  constructor( private loginService:LoginService, private studentService:StudentService, private adminService:AdminService) { }
+  constructor( private loginService:LoginService, private studentService:StudentService, private adminService:AdminService, public router: Router) { }
+
 
   /*On load function calls*/
   
   ngOnInit() {
+    if(this.adminService.loggedIn()) {
+      this.router.navigate(['active-students']);
+    }
+    if(this.loginService.loggedIn()) {
+      this.router.navigate(['button']);
+    }
   }
 
   // allows students to login via login service

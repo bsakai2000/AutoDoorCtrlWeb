@@ -55,4 +55,9 @@ export class AdminService {
       return true;
     }
   }
+
+  // checks if the admin is logged in
+  loggedIn(): boolean {
+    return !(localStorage.getItem("admin") === null)
+  }
 }
