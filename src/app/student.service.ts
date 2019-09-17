@@ -78,7 +78,7 @@ export class StudentService {
       console.log("err: issue with server");
       })
   }
-// lusts the student complaints stored in the db
+// lists the student complaints stored in the db
   listComplaints():Observable<any>{
     return this.http.get<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/get-complaints")
 
@@ -100,7 +100,7 @@ export class StudentService {
         
       },
       err =>{
-      console.log("err: issue with server");
+        console.log("err: issue with server");
       })
 
   }

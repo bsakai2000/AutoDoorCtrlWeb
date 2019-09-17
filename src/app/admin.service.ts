@@ -29,13 +29,16 @@ export class AdminService {
       let body = JSON.stringify({username:username, password:password});
       console.log('this is username in service',body)
       this.http.post<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/admin/login",body,{headers: headers, withCredentials: true}).subscribe(
-        data =>{ this.router.navigate(['active-students']); localStorage.setItem("admin", data[0].username); },
+	data =>{
+	  this.router.navigate(['active-students']);
+	  localStorage.setItem("admin", data[0].username);
+	},
         err => {console.log("error on the server")}
       );
      return false;
   }
 
-  // deletes admin from local storage
+  // deletes admin from local storage and clears session cookie
   logout():void{
     localStorage.removeItem("admin");
     document.cookie = "SESSIONID=";

@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
 
 
   /*On load function calls*/
-  
+
+  //when first accessed, if already logged in redirect to appropriate page
   ngOnInit() {
     if(this.adminService.loggedIn()) {
       this.router.navigate(['active-students']);
