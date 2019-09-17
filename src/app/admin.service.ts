@@ -31,7 +31,7 @@ export class AdminService {
       this.http.post<any>(serverGlobals.dbServer + ":" + serverGlobals.dbPort + "/api/admin/login",body,{headers: headers, withCredentials: true}).subscribe(
 	data =>{
 	  this.router.navigate(['active-students']);
-	  localStorage.setItem("admin", data[0].username);
+	  localStorage.setItem("admin", data.SESSIONID);
 	},
         err => {console.log("error on the server")}
       );
